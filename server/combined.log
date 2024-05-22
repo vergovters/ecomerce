@@ -1,0 +1,14 @@
+{"level":"info","message":"Це інформаційне повідомлення","service":"user-service"}
+{"level":"error","message":"Це повідомлення про помилку","service":"user-service"}
+{"level":"info","message":"Це інформаційне повідомлення","service":"user-service"}
+{"level":"error","message":"Це повідомлення про помилку","service":"user-service"}
+{"level":"info","message":"Hello distributed log files!","service":"user-service"}
+{"level":"info","message":"Hello again distributed logs","service":"user-service"}
+{"level":"info","message":"Hello distributed log files!","service":"user-service"}
+{"level":"info","message":"Hello again distributed logs","service":"user-service"}
+{"level":"info","message":"Hello distributed log files!","service":"user-service"}
+{"level":"info","message":"Hello again distributed logs","service":"user-service"}
+{"level":"info","message":"Hello distributed log files!","service":"user-service"}
+{"level":"info","message":"Hello again distributed logs","service":"user-service"}
+{"level":"info","message":"Hello distributed log files!","service":"user-service"}
+{"level":"info","message":"Hello again distributed logs","service":"user-service"}
