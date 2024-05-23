@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -8,12 +9,23 @@ const Container = styled.div`
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://images.pexels.com/photos/6984661/pexels-photo-6984661.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+    url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
       center;
   background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+`;
+
+const BackButton = styled.button`
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
 `;
 
 const Wrapper = styled.div`
@@ -55,8 +67,11 @@ const Button = styled.button`
 `;
 
 const Register = () => {
+  const navigate = useNavigate()
+
   return (
     <Container>
+      <BackButton onClick={() => navigate(-1)}>Back</BackButton>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
         <Form>

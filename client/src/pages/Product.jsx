@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Container = styled.div``;
 
@@ -130,7 +131,7 @@ const Product = () => {
   const [size, setSize] = useState("");
   const dispatch = useDispatch();
 
-  console.log(product);
+  const user = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -151,6 +152,10 @@ const Product = () => {
   };
 
   const handleClick = () => {
+    if(!user){
+      alert('You need to login first')
+      return
+    }
     dispatch(
       addProduct({ ...product, quantity, color, size })
     );

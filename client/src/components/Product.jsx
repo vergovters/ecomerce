@@ -5,6 +5,8 @@ import {
 } from "@mui/icons-material";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import likeProduct from "../redux/likeRedux";
 
 const Info = styled.div`
   opacity: 0;
@@ -68,14 +70,30 @@ const Icon = styled.div`
 `;
 
 const Product = ({ item }) => {
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+  console.log('Before dispatching action');
+  try {
+    dispatch(likeProduct({ ...item }));
+    console.log('After dispatching action');
+  } catch (error) {
+    console.error('Error in handleClick:', error);
+  }
+};
+
+
   return (
     <Container>
       <Circle />
       <Image src={item.img} />
       <Info>
-        <Icon>
-          <ShoppingCartOutlined />
-        </Icon>
+
+          <Link to={`/cart`}>
+            <Icon>
+              <ShoppingCartOutlined />
+            </Icon>
+          </Link>
         
           <Link to={`/product/${item._id}`}>
             <Icon>
@@ -83,9 +101,9 @@ const Product = ({ item }) => {
             </Icon>
           </Link>
        
-        <Icon>
+        {/* <Icon onClick={handleClick}>
           <FavoriteBorderOutlined />
-        </Icon>
+        </Icon> */}
       </Info>
     </Container>
   );

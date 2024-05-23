@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Add, Remove } from "@mui/icons-material";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
@@ -8,6 +7,8 @@ import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { userRequest } from "../requestMethods";
+import { useDispatch } from "react-redux";
+import { clearProducts, deleteProduct } from "../redux/cartRedux";
 import StripeCheckout from "react-stripe-checkout";
 
 
@@ -162,35 +163,31 @@ const Button = styled.button`
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
-  const history = useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onToken = (token) => {
     setStripeToken(token);
   };
 
-const KEY = process.env.REACT_APP_STRIPE;
-const TOKEN = process.env.REACT_APP_SECRET;
+  const handleDeleteProduct = (productId) => {
+    dispatch(deleteProduct(productId));
+  };
 
+  const KEY = process.env.REACT_APP_STRIPE;
+  const TOKEN = process.env.REACT_APP_SECRET;
 
- useEffect(() => {
+  useEffect(() => {
     const makeRequest = async () => {
-      console.log("KEY:", KEY);
-      console.log("TOKEN:", TOKEN);
       try {
-        const res = await userRequest.post("/checkout/payment", {
-          tokenId: stripeToken.id,
-          amount: cart.total * 100,
-        }, {
-          headers: {
-            Authorization: `Bearer ${TOKEN}`,
-          }
-        });
-        history("/success", { 
+      
+        navigate("/success", { 
           state: {
-            stripeData: res.data,
             products: cart,
           },
         });
+
+        dispatch(clearProducts())
       } catch (error) {
         console.error(error);
       }
@@ -198,8 +195,8 @@ const TOKEN = process.env.REACT_APP_SECRET;
     if (stripeToken && cart.total) {
       makeRequest();
     }
-  }, [stripeToken, cart.total, history]);
-  
+  }, [stripeToken, cart.total, navigate, TOKEN]);
+
   return (
     <Container>
       <Navbar />
@@ -209,7 +206,7 @@ const TOKEN = process.env.REACT_APP_SECRET;
         <Top>
           <TopButton>CONTINUE SHOPPING</TopButton>
           <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
+            <TopText>Shopping Bag({cart.products.length})</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
           <TopButton type="filled">CHECKOUT NOW</TopButton>
@@ -217,7 +214,7 @@ const TOKEN = process.env.REACT_APP_SECRET;
         <Bottom>
           <Info>
             {cart.products.map((product) => (
-              <Product>
+              <Product key={product._id}>
                 <ProductDetail>
                   <Image src={product.img} />
                   <Details>
@@ -241,6 +238,7 @@ const TOKEN = process.env.REACT_APP_SECRET;
                     $ {product.price * product.quantity}
                   </ProductPrice>
                 </PriceDetail>
+                <button onClick={() => handleDeleteProduct(product._id)}>delete</button>
               </Product>
             ))}
             <Hr />
@@ -263,15 +261,15 @@ const TOKEN = process.env.REACT_APP_SECRET;
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
-              <StripeCheckout
-                name="ShoeStore"
-                billingAddress
-                shippingAddress
-                description={`Your total is $${cart.total}`}
-                amount={cart.total * 100}
-                token={onToken}
-                stripeKey={KEY}
-              >
+            <StripeCheckout
+              name="ShoeStore"
+              billingAddress
+              shippingAddress
+              description={`Your total is $${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
               <Button>CHECKOUT NOW</Button>
             </StripeCheckout>
           </Summary>

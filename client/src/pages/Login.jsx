@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { login } from "../redux/apiCalls";
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -17,6 +18,17 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+`;
+
+const BackButton = styled.button`
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
 `;
 
 const Wrapper = styled.div`
@@ -57,12 +69,6 @@ const Button = styled.button`
   }
 `;
 
-const Link = styled.a`
-  margin: 5px 0px;
-  font-size: 12px;
-  text-decoration: underline;
-  cursor: pointer;
-`;
 
 const Error = styled.span`
   color: red;
@@ -71,6 +77,7 @@ const Error = styled.span`
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isFetching, error } = useSelector((state) => state.user);
 
@@ -80,6 +87,7 @@ const Login = () => {
   };
   return (
     <Container>
+      <BackButton onClick={() => navigate(-1)}>Back</BackButton>
       <Wrapper>
         <Title>SIGN IN</Title>
         <Form>
@@ -96,8 +104,7 @@ const Login = () => {
             LOGIN
           </Button>
           {error && <Error>Something went wrong...</Error>}
-          <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
-          <Link>CREATE A NEW ACCOUNT</Link>
+          <button onClick={() => navigate("/register")}>CREATE A NEW ACCOUNT</button>
         </Form>
       </Wrapper>
     </Container>
