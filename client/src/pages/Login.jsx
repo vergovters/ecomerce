@@ -12,7 +12,7 @@ const Container = styled.div`
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+    url("https://th.bing.com/th/id/OIP.Rctg9WpPFCFgciuhpROxcgHaE8?rs=1&pid=ImgDetMain")
       center;
   background-size: cover;
   display: flex;
@@ -29,6 +29,8 @@ const BackButton = styled.button`
   background-color: #f0f0f0;
   border: none;
   cursor: pointer;
+  background-color: inherit;
+  font-size: 20px;
 `;
 
 const Wrapper = styled.div`
@@ -59,7 +61,7 @@ const Button = styled.button`
   width: 40%;
   border: none;
   padding: 15px 20px;
-  background-color: teal;
+  background-color: #3884fc;
   color: white;
   cursor: pointer;
   margin-bottom: 10px;

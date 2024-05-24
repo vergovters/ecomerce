@@ -1,21 +1,21 @@
 export const sliderItems = [
     {
       id: 1,
-      img: "https://i.ibb.co/XsdmR2c/1.png",
+      img: "https://th.bing.com/th/id/R.ee10f65911496caccbee95f1523c9ab5?rik=OZYlcNRjW1O%2fuQ&riu=http%3a%2f%2fwww.freepngimg.com%2fdownload%2fshoes%2f6-2-shoes-png-file.png&ehk=bQ6ogRGbFWHKccRsg3xafCIzLlSObWX9TmWlhn1pTik%3d&risl=&pid=ImgRaw&r=0",
       title: "SUMMER SALE",
       desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
       bg: "f5fafd",
     },
     {
       id: 2,
-      img: "https://i.ibb.co/DG69bQ4/2.png",
+      img: "https://www.pngall.com/wp-content/uploads/2016/03/Shoes.png",
       title: "AUTUMN COLLECTION",
       desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
       bg: "fcf1ed",
     },
     {
       id: 3,
-      img: "https://i.ibb.co/cXFnLLV/3.png",
+      img: "https://th.bing.com/th/id/OIP.3fan52qcqDvrpavZfXNsuwHaHa?rs=1&pid=ImgDetMain",
       title: "LOUNGEWEAR LOVE",
       desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
       bg: "fbf0f4",
@@ -25,20 +25,20 @@ export const sliderItems = [
   export const categories = [
     {
       id: 1,
-      img: "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      title: "SHIRT STYLE!",
+      img: "https://th.bing.com/th/id/OIP.WTjoKEXVpA0GOycTXglS4gHaHa?w=800&h=800&rs=1&pid=ImgDetMain",
+      title: "WOMEN SHOES",
       cat:"women"
     },
     {
       id: 2,
-      img: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      title: "LOUNGEWEAR LOVE",
+      img: "https://th.bing.com/th/id/OIP.pk35pY0cz2E349z3Dnk3OAHaHa?w=736&h=736&rs=1&pid=ImgDetMain",
+      title: "MEN SHOES",
       cat:"men"
     },
     {
       id: 3,
-      img: "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      title: "LIGHT JACKETS",
+      img: "https://i.pinimg.com/originals/51/ea/0c/51ea0c5ac24f39521a4af97e38e5164a.jpg",
+      title: "SUMMER SNEAKERS",
       cat:"sneakers"
     },
   ];

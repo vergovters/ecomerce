@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
-import Footer from "../components/Footer";
+import Footer from "../components/Footer/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
@@ -10,7 +10,7 @@ import { userRequest } from "../requestMethods";
 import { useDispatch } from "react-redux";
 import { clearProducts, deleteProduct } from "../redux/cartRedux";
 import StripeCheckout from "react-stripe-checkout";
-
+import { publicRequest } from "../requestMethods";
 
 const Container = styled.div``;
 
@@ -166,6 +166,8 @@ const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const user = useSelector((state) => state.user.currentUser);
+
   const onToken = (token) => {
     setStripeToken(token);
   };
@@ -176,26 +178,36 @@ const Cart = () => {
 
   const KEY = process.env.REACT_APP_STRIPE;
   const TOKEN = process.env.REACT_APP_SECRET;
-
-  useEffect(() => {
+useEffect(() => {
     const makeRequest = async () => {
       try {
-      
-        navigate("/success", { 
+        const res = await userRequest.post("/orders", {
+          userId: user._id,
+          products: cart.products.map((product) => ({
+            productId: product._id,
+            quantity: product.quantity,
+          })),
+          amount: cart.total,
+          status: "pending",
+        });
+
+        navigate("/success", {
           state: {
-            products: cart,
+            products: cart.products,
           },
         });
 
-        dispatch(clearProducts())
+        dispatch(clearProducts());
       } catch (error) {
-        console.error(error);
+        console.error("Error creating order:", error);
       }
     };
+
     if (stripeToken && cart.total) {
       makeRequest();
     }
-  }, [stripeToken, cart.total, navigate, TOKEN]);
+  }, [stripeToken, cart.total, user._id, navigate, dispatch]);
+
 
   return (
     <Container>

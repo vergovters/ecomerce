@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { publicRequest } from "../requestMethods";
 
 const Container = styled.div`
   width: 100vw;
@@ -33,6 +35,8 @@ const Wrapper = styled.div`
   padding: 20px;
   background-color: white;
   ${mobile({ width: "75%" })}
+  display: flex;
+  flex-direction: column;
 `;
 
 const Title = styled.h1`
@@ -64,28 +68,56 @@ const Button = styled.button`
   background-color: teal;
   color: white;
   cursor: pointer;
+  margin-top: 10px;
 `;
 
 const Register = () => {
-  const navigate = useNavigate()
+   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await publicRequest.post("/auth/register", {
+        username,
+        password,
+        email,
+      });
+      navigate("/login")
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <Container>
       <BackButton onClick={() => navigate(-1)}>Back</BackButton>
       <Wrapper>
-        <Title>CREATE AN ACCOUNT</Title>
+        <Title>REGISTRATION</Title>
         <Form>
-          <Input placeholder="name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="confirm password" />
-          <Agreement>
-            By creating an account, I consent to the processing of my personal
-            data in accordance with the <b>PRIVACY POLICY</b>
-          </Agreement>
-          <Button>CREATE</Button>
+          <Input
+            placeholder="username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+           <Input
+            placeholder="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            placeholder="password"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Input
+            placeholder="repeat password"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button onClick={handleClick}>
+            REGISTER
+          </Button>
+          <Button style={{backgroundColor: "black", color: "white", marginLeft: "140px"}} onClick={() => navigate("/login")}>Already have an account?</Button>
         </Form>
       </Wrapper>
     </Container>

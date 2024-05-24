@@ -55,28 +55,29 @@ const Navbar = () => {
   return (
     <Container>
       <Wrapper>
-          <Link to="/">
+          <Link style={{ textDecoration: "none", color: "black" }} to="/">
             <Logo>ShoeStore.</Logo>
           </Link>
         <Right>
          {
           user ? <div style={{ display: "flex", alignItems: "center" }}>
+              <Link to="/orders" style={{ marginRight: "10px", textDecoration: "none", color: "black" }}>Orders</Link>
               <span style={{ marginRight: "10px" }}>{user?.username}</span>
               <span onClick={handleLogout} style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
                 <Logout/>
               </span>
             </div> : <>
-               <Link to="/register">
+               <Link style={{ textDecoration: "none", color: "black" }} to="/register">
                   <MenuItem>REGISTER</MenuItem>
                 </Link>
                 
-                <Link to="/login">
+                <Link style={{ textDecoration: "none", color: "black" }} to="/login">
                   <MenuItem>SIGN IN</MenuItem>
                 </Link>
             </>
          }
           
-          <Link to="/cart">
+          <Link style={{ textDecoration: "none", color: "black" }} to="/cart">
           <MenuItem>
             <Badge badgeContent={quantity} color="primary">
               <ShoppingCartOutlined />
