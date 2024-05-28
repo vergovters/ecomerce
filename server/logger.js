@@ -1,15 +1,11 @@
-const winston = require('winston');
-const { LogstashTransport } = require('winston-logstash-transport');
+const winston = require("winston");
 
 const logger = winston.createLogger({
+  format: winston.format.json(),
   transports: [
-    new LogstashTransport({
-      port: process.env.LOGSTASH_PORT || 5000,
-      host: process.env.LOGSTASH_HOST || 'localhost',
-      node_name: 'my-node-app', // Name of your application
-      max_connect_retries: -1,
-    })
-  ]
+    new winston.transports.File({ filename: "error.log", level: "error" }),
+    new winston.transports.File({ filename: "combined.log" }),
+  ],
 });
 
 module.exports = logger;
